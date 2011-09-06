@@ -51,10 +51,20 @@ local fs_path='%{$reset_color%}%{$fg_bold[grey]%}$(dirname_prompt)%{$fg_bold[blu
 # with rvm so changing the color of the rvm prompt is an option.  Yellow is a
 # warning "something isn't right" but not so different from white that it's
 # obnoxious.
+
+# Check for RVM-prompt once.
+if which rvm-prompt >/dev/null; then
+  ZSH_THEME_RVM_PROMPT_ENABLED=true
+else
+  ZSH_THEME_RVM_PROMPT_ENABLED=false
+fi
+
 function jeff_rvm_prompt() {
-  local rvm_prompt="$(rvm-prompt v g)"
-  if [[ -n $rvm_prompt ]]; then
-    echo "%{$reset_color%}$(envpuppet_yellow)${rvm_prompt}%{$reset_color%} "
+  if [[ $ZSH_THEME_RVM_PROMPT_ENABLED == true ]]; then
+    local rvm_prompt="$(rvm-prompt v g)"
+    if [[ -n $rvm_prompt ]]; then
+      print -P "%{$reset_color%}$(envpuppet_yellow)${rvm_prompt}%{$reset_color%} "
+    fi
   fi
 }
 
