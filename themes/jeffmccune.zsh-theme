@@ -21,7 +21,7 @@ local return_code='%(?..%{$fg[red]%}%? ↵%{$reset_color%})'
 # My Prompt Variables and Functions (I try and mix and match these)
 function dirname_prompt() {
   local parent
-  parent="$(dirname $(print -P %4~))"
+  parent=$(dirname "$(print -P %4~)")
   if [[ $parent == '.' ]]; then
     return 0
   elif [[ $parent == '/' ]]; then
