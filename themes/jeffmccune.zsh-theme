@@ -71,7 +71,11 @@ function jeff_rvm_prompt() {
 function jeff_git_prompt() {
   local p_git="$(git_prompt_info)"
   if [[ -n $p_git ]]; then
-    echo "${p_git} "
+    local n_merged="$(git branch --merged | wc -l)"
+    local n_unmerged="$(git branch --no-merged | wc -l)"
+    local n_branches="$(git branch | wc -l)"
+    local p_merge_sparks="$(spark $n_branches $n_merged $n_unmerged)"
+    echo "${p_git}[${p_merge_sparks}]"
   fi
 }
 
@@ -85,7 +89,7 @@ local p_rvm='$(jeff_rvm_prompt)'
 local p_git='$(jeff_git_prompt)'
 
 PROMPT="$user_host ${p_git}${p_rvm}${fs_path} ${return_code}
-%# "
+"'$ '
 
 # PROMPT='%{$fg[cyan]%}%2~ %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} %# %{$reset_color%}$(vi_mode_prompt_info)'
 # RPROMPT="${return_code} ${rvm} "
