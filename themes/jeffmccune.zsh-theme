@@ -53,7 +53,7 @@ local fs_path='%{$reset_color%}%{$fg_bold[grey]%}$(dirname_prompt)%{$fg_bold[blu
 # obnoxious.
 
 # Check for RVM-prompt once.
-if which rvm-prompt >/dev/null; then
+if which rvm-prompt >/dev/null 2>/dev/null; then
   ZSH_THEME_RVM_PROMPT_ENABLED=true
 else
   ZSH_THEME_RVM_PROMPT_ENABLED=false
